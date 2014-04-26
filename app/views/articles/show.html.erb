@@ -1,6 +1,31 @@
 <h1><%= @article.title %></h1><br>
-
 <p><%= @article.body %><br><br><br>
+
 <%= link_to "<<Back to articles list", articles_path %><br>
 <%= link_to "Delete Article", article_path(@article), method: :delete, data: { confirm: "Are you sure you want to delete?" } %><br>
-<%= link_to "Edit", edit_article_path(@article)%>
+<%= link_to "Edit", edit_article_path(@article)%>	
+	
+<h3> Comments </h3>
+<% @article.comments.each do |comment| %>
+	<p class="comment">
+		<% if comment.author_name == nil %>
+		<%= "ANNONYMOUS_USER posted:" %>
+		<% else %>
+		<%= "#{comment.author_name} posted:" %>
+		<% end %>
+		<%= "#{comment.body}" %><br>
+	</p>
+<% end %>
+
+<form action=<%= article_comments_path(@article)%> method="POST">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" >
+	<label for="comment_body">Comment</label>
+	<input type="text" name="comment[body]" id="comment_body">
+	<input type="submit" name="Leave Comment">
+</form>
+
+
+
+
+
+
