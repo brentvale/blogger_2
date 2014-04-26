@@ -1,0 +1,18 @@
+<form action=<%= @article.persisted? ? article_url(@article) : articles_url %> method="POST">
+	
+	<% if @article.persisted? %>
+		<input type="hidden" name="_method" value="PATCH">
+	<% end %>
+	
+	<input type="hidden" name="authenticity_token"
+		value="<%= form_authenticity_token %>" >
+		
+	<label for="article_title">Article Title</label>
+	<input type="text" name="article[title]" 		   		  		id="article_title" value="<%= @article.title %>"><br>
+	
+	<label for="article_body">Text of Article</label>
+	<input type="text" name="article[body]" id="article_body" 		value="<%= @article.body %>"><br>
+	
+	<input type="submit" value="Submit">
+	
+</form>
